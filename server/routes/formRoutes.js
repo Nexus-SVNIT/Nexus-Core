@@ -1,6 +1,4 @@
 const express = require('express');
-const authMiddleware = require('../middlewares/authMiddleware.js');
-const coreAuthMiddleware = require('../middlewares/coreAuthMiddleware.js');
 const { 
   getAllForms, 
   createForm, 
@@ -18,13 +16,13 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // Routes
 router.get('/:id', getFormFields);
-router.get('/all', coreAuthMiddleware, getAllForms);
-router.post('/create', coreAuthMiddleware, createForm);
-router.get('/get-responses/:id', coreAuthMiddleware, getResponses);
-router.patch('/update-status/:id', coreAuthMiddleware, updateFormStatus);
-router.patch('/update-deadline/:id', coreAuthMiddleware,updateFormDeadline);
-router.put('/update/:id', coreAuthMiddleware, updateForm);
-router.post('/notify-subscribers/:formId', coreAuthMiddleware,notifyAllSubscribers);
+router.get('/all', getAllForms);
+router.post('/create', createForm);
+router.get('/get-responses/:id', getResponses);
+router.patch('/update-status/:id', updateFormStatus);
+router.patch('/update-deadline/:id', updateFormDeadline);
+router.put('/update/:id', updateForm);
+router.post('/notify-subscribers/:formId', notifyAllSubscribers);
 
 
 

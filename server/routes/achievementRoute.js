@@ -1,6 +1,4 @@
 const express = require('express');
-const coreAuthMiddleware = require('../middlewares/coreAuthMiddleware.js');
-const authMiddleware = require('../middlewares/authMiddleware.js');
 const {
   allAchievements,
   pendingAchievements,
@@ -25,9 +23,9 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 router.get('/', allAchievements);
-router.get('/pending', coreAuthMiddleware, pendingAchievements);
-router.patch('/verify/:id', coreAuthMiddleware, verifyAchievement);
-router.patch('/unverify/:id', coreAuthMiddleware, unverifyAchievement);
-router.delete('/:id', coreAuthMiddleware, deleteAchievement); // New endpoint for deletion
+router.get('/pending', pendingAchievements);
+router.patch('/verify/:id', verifyAchievement);
+router.patch('/unverify/:id', unverifyAchievement);
+router.delete('/:id', deleteAchievement); // New endpoint for deletion
 
 module.exports = router;

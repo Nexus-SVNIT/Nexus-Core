@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const coreAuthMiddleware = require('../middlewares/coreAuthMiddleware');
 const { addTeamMember } = require('../controllers/teamMembersController');
 
 const router = express.Router();
@@ -17,6 +16,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/add', coreAuthMiddleware, upload.single('image'), addTeamMember);
+router.post('/add', upload.single('image'), addTeamMember);
 
 module.exports = router;

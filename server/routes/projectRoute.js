@@ -4,8 +4,7 @@ const router = express.Router();
 const {
     createProject
 } = require('../controllers/projectController');
-const coreAuthMiddleware = require('../middlewares/coreAuthMiddleware');
 
-router.post('/', coreAuthMiddleware, createProject);
+router.post('/', createProject);
 
 module.exports = router;
