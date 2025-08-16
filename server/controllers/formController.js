@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Forms = mongoose.model('form');
+const Forms = require('../models/formModel.js');
 const User = require('../models/userModel.js');
-const CoreMember = require('../models/coreMember.js');
+const teamMemberModel = require('../models/teamMembersModel.js');
 const { sendEmail } = require('../utils/emailUtils.js');
 const { 
     formEmailTemplate, 
@@ -336,8 +336,8 @@ const notifyAllSubscribers = async (req, res) => {
         }
 
         // Fetch core member who created the notification
-        const coreMember = await CoreMember.findById(req.user.id).select('email admissionNumber');
-        const formCreator = form.createdByAdmissionNumber || (coreMember ? coreMember.admissionNumber : 'NEXUS Core Team');
+        const teamMember = await teamMemberModel.findById(req.user.id).select('email admissionNumber');
+        const formCreator = form.createdByAdmissionNumber || (teamMember ? teamMember.admissionNumber : 'NEXUS Core Team');
         
         // Find all subscribed users
         const subscribers = await User.find({ subscribed: true });
@@ -378,7 +378,7 @@ const notifyAllSubscribers = async (req, res) => {
         // Send confirmation to admin with details
         await sendEmail({
             to: process.env.EMAIL_ID,
-            cc: coreMember ? coreMember.email : undefined,
+            cc: teamMember ? teamMember.email : undefined,
             subject: `Form Notification Sent: ${form.name}`,
             html: `
                 <div style="background-color: black; color: white; font-size: 14px; padding: 20px;">
@@ -386,7 +386,7 @@ const notifyAllSubscribers = async (req, res) => {
                         <h2>Form Notification Summary</h2>
                         <p>Form <strong>${form.name}</strong> notification was sent to ${subscribers.length} subscribers.</p>
                         <p>Created by: ${formCreator}</p>
-                        <p>Notification sent by: ${coreMember ? coreMember.email : 'Unknown'}</p>
+                        <p>Notification sent by: ${teamMember ? teamMember.email : 'Unknown'}</p>
                         <p>Sent on: ${new Date().toLocaleString()}</p>
                         <p><a href="https://docs.google.com/spreadsheets/d/${form.sheetId}" style="color: #1a73e8;">View Responses</a></p>
                     </div>

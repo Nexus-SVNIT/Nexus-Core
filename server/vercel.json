@@ -29,7 +29,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://www.nexus-svnit.in"
+          "value": "https://stage.nexus-svnit.in"
         }
       ]
     }

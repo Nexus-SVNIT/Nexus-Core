@@ -1,7 +1,6 @@
 {
   "name": "nexus_core_server",
-  "description": " Nexus is the vibrant Computer Science and Engineering club at NIT Surat, and this project showcases our commitment to innovation. The frontend is built with React and Tailwind CSS, while the backend leverages Node.js.",
-  "homepage": "https://Bharat0509.github.io/Nexus",
+  "description": "Server for admin panel of Nexus portal.",
   "version": "1.0.0",
   "main": "./server.js",
   "scripts": {
