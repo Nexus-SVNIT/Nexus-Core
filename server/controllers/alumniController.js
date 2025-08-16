@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const { alumniVerificationTemplate, alumniRejectionTemplate } = require('../utils/emailTemplates.js');
 
 const getAllAlumniDetails = async (req, res) => {
     try {
@@ -84,62 +85,67 @@ const getAllCompaniesAndExpertise = async (req, res) => {
     }
 };
 
-const getPendingAlumniDetails = async (req, res) => {
+const getPendingAlumni = async (req, res) => {
     try {
-        const page = parseInt(req.query.page, 10) || 1;
-        const limit = parseInt(req.query.limit, 10) || 10;
-        const skip = (page - 1) * limit;
-
-        const alumniDetails = await User.find({ isAlumni: true, isVerified: false })
-            .sort({ createdAt: 1 })
-            .select('-isVerified')
-            .skip(skip)
-            .limit(limit);
-
-        return res.status(200).json(alumniDetails);
+        const pendingAlumni = await user.find({
+            isAlumni: true,
+            emailVerified: true,
+            isVerified: false
+        });
+        res.status(200).json(pendingAlumni);
     } catch (error) {
-        console.error("Error fetching pending alumni:", error);
-        return res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: 'Error fetching pending alumni', error });
     }
 };
 
-const toggleVerification = async (req, res) => {
+const verifyAlumni = async (req, res) => {
     try {
         const { id } = req.params;
-        const alumni = await User.findOne({ isAlumni: true, _id: id });
+        const alumniUser = await user.findById(id);
 
-        if (!alumni) {
-            return res.status(404).json({
-                success: false,
-                message: "Alumni not found"
-            });
+        if (!alumniUser) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        alumni.isVerified = !alumni.isVerified;
+        alumniUser.isVerified = true;
+        await alumniUser.save();
 
+        // Send verification email
+        const emailContent = alumniVerificationTemplate(alumniUser.fullName);
+        // CHANGE: await transporter.sendMail({ ...emailContent, to: alumniUser.personalEmail })
+        await sendEmail({ ...emailContent, to: alumniUser.personalEmail });
 
-        await alumni.save();
-
-        return res.status(200).json({
-            success: true,
-            message: `Alumni has been ${alumni.isVerified ? "verified" : "unverified"}`,
-            data: {
-                alumniId: alumni._id,
-                isVerified: alumni.isVerified
-            }
-        });
+        res.status(200).json({ message: 'Alumni verified successfully' });
     } catch (error) {
-        console.error("Error toggling verification:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Server error"
-        });
+        res.status(500).json({ message: 'Error verifying alumni', error });
+    }
+};
+
+const rejectAlumni = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const alumniUser = await user.findById(id);
+
+        if (!alumniUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Send rejection email
+        const emailContent = alumniRejectionTemplate(alumniUser.fullName);
+        // CHANGE: await transporter.sendMail({ ...emailContent, to: alumniUser.personalEmail })
+        await sendEmail({ ...emailContent, to: alumniUser.personalEmail });
+
+        await user.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Alumni rejected successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error rejecting alumni', error });
     }
 };
 
 module.exports = {
     getAllAlumniDetails,
-    getPendingAlumniDetails,
-    toggleVerification,
-    getAllCompaniesAndExpertise
+    getAllCompaniesAndExpertise,
+    getPendingAlumni,
+    verifyAlumni,
+    rejectAlumni
 };
