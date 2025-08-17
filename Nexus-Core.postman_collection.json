@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "c8f3f8d3-6f1c-4f5a-9e1c-f8d3c6f1c4f5",
+		"name": "Nexus Core API",
+		"description": "Collection of all APIs for the Nexus Core project with corrected routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Verify Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/verify",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "verify"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/get/all?page=1&limit=10&sortBy=fullName&order=asc&search=john&branch=CSE&year=2023",
+							"host": ["{{baseUrl}}"],
+							"path": ["user", "get", "all"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "fullName"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								},
+								{
+									"key": "search",
+									"value": "john"
+								},
+								{
+									"key": "branch",
+									"value": "CSE"
+								},
+								{
+									"key": "year",
+									"value": "2023"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Notify Batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipients\": [\"U21CS001\", \"U21CS002\"],\n    \"subject\": \"Important Notice\",\n    \"message\": \"This is a test notification for the batch.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/notify-batch",
+							"host": ["{{baseUrl}}"],
+							"path": ["user", "notify-batch"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/event",
+							"host": ["{{baseUrl}}"],
+							"path": ["event"]
+						}
+					}
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\": \"Hackathon 2025\",\n    \"eventDate\": \"2025-09-15T10:00:00Z\",\n    \"eventDescription\": \"24-hour coding competition\",\n    \"eventType\": \"competition\",\n    \"eventPoster\": \"https://example.com/poster.jpg\",\n    \"eventStatus\": \"upcoming\",\n    \"eventImages\": [\n        \"https://example.com/image1.jpg\",\n        \"https://example.com/image2.jpg\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/event",
+							"host": ["{{baseUrl}}"],
+							"path": ["event"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Forms",
+			"item": [
+				{
+					"name": "Create Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Hackathon Registration\",\n    \"desc\": \"Register for the annual hackathon\",\n    \"deadline\": \"2025-09-10T23:59:59Z\",\n    \"formFields\": [\n        {\n            \"questionText\": \"Team Name\",\n            \"type\": \"text\",\n            \"required\": true\n        },\n        {\n            \"questionText\": \"Project Theme\",\n            \"type\": \"select\",\n            \"required\": true,\n            \"options\": [\"AI/ML\", \"Web3\", \"IoT\", \"Cybersecurity\"]\n        }\n    ],\n    \"WaLink\": \"https://chat.whatsapp.com/xyz\",\n    \"enableTeams\": true,\n    \"teamSize\": 4,\n    \"fileUploadEnabled\": true,\n    \"posterImageDriveId\": \"abc123\",\n    \"extraLinkName\": \"Problem Statement\",\n    \"extraLink\": \"https://example.com/problems\",\n    \"isHidden\": false,\n    \"isOpenForAll\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/forms/create",
+							"host": ["{{baseUrl}}"],
+							"path": ["forms", "create"]
+						}
+					}
+				},
+				{
+					"name": "Get Form Responses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/forms/get-responses/{{formId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["forms", "get-responses", "{{formId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Smart Campus\",\n    \"description\": \"IoT-based smart campus monitoring system\",\n    \"githubLink\": \"https://github.com/example/smart-campus\",\n    \"teamMembers\": [\"U21CS001\", \"U21CS002\"],\n    \"mentors\": [\"PROF001\", \"PROF002\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects",
+							"host": ["{{baseUrl}}"],
+							"path": ["projects"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get Post By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/posts/{{postId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["posts", "{{postId}}"]
+						}
+					}
+				},
+				{
+					"name": "Verify Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/{{postId}}/verify",
+							"host": ["{{baseUrl}}"],
+							"path": ["posts", "{{postId}}", "verify"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Achievements",
+			"item": [
+				{
+					"name": "Get All Achievements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/achievements",
+							"host": ["{{baseUrl}}"],
+							"path": ["achievements"]
+						}
+					}
+				},
+				{
+					"name": "Verify Achievement",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/achievements/verify/{{achievementId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["achievements", "verify", "{{achievementId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Alumni",
+			"item": [
+				{
+					"name": "Get All Alumni",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alumni",
+							"host": ["{{baseUrl}}"],
+							"path": ["alumni"]
+						}
+					}
+				},
+				{
+					"name": "Verify Alumni",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/alumni/verify/{{alumniId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["alumni", "verify", "{{alumniId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Issues",
+			"item": [
+				{
+					"name": "Get All Issues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/issue/admin",
+							"host": ["{{baseUrl}}"],
+							"path": ["issue", "admin"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Team Members",
+			"item": [
+				{
+					"name": "Add Team Member",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "name",
+									"value": "John Doe",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Developer",
+									"type": "text"
+								},
+								{
+									"key": "batch",
+									"value": "2023",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "john@example.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/team/add",
+							"host": ["{{baseUrl}}"],
+							"path": ["team", "add"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "your-auth-token-here",
+			"type": "string"
+		}
+	]
+}
