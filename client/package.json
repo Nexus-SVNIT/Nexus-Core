@@ -1,0 +1,80 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@material-tailwind/react": "^2.1.10",
+    "@mui/icons-material": "^6.4.5",
+    "@mui/joy": "^5.0.0-beta.22",
+    "@mui/material": "^6.4.5",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tanstack/react-query": "^5.17.9",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "buffer": "^6.0.3",
+    "chart.js": "^4.4.6",
+    "client": "file:",
+    "dompurify": "^3.2.4",
+    "html-react-parser": "^5.1.18",
+    "js-cookie": "^3.0.5",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "quill": "^2.0.3",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-countup": "^6.5.3",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.12.0",
+    "react-pro-sidebar": "^0.7.1",
+    "react-query": "^3.39.3",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.30.0",
+    "react-scripts": "5.0.1",
+    "react-search-input": "^0.11.3",
+    "react-share": "^5.0.3",
+    "react-social-icons": "^6.9.0",
+    "react-table": "^7.8.0",
+    "recharts": "^2.13.2",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "gh-pages": "^6.1.1",
+    "tailwindcss": "^3.3.6"
+  }
+}
