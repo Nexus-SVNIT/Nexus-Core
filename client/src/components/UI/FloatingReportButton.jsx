@@ -80,7 +80,7 @@ export default function FloatingReportButton() {
         formData.append('image', image);
       }
       
-      console.log('Sending request to:', `${process.env.REACT_APP_BACKEND_BASE_URL}/api/issue/create`);
+  console.log('Sending request to:', `${process.env.REACT_APP_BACKEND_BASE_URL}/issue/create`);
       console.log('FormData contents:');
       for (let [key, value] of formData.entries()) {
         console.log(key, value);
@@ -91,7 +91,7 @@ export default function FloatingReportButton() {
         headers['Authorization'] = `Bearer ${token}`;
       }
       
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/issue/create`, {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/issue/create`, {
         method: 'POST',
         headers,
         body: formData

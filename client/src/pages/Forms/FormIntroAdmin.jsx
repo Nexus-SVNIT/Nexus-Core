@@ -148,7 +148,7 @@ function FormIntroAdmin(props) {
   };
 
   const handleEditForm = () => {
-    navigate(`/core/admin/forms/edit/${props.form._id}`);
+    navigate(`/admin/forms/edit/${props.form._id}`);
   };
 
   return (

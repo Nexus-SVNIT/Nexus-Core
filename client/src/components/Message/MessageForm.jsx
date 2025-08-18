@@ -37,7 +37,7 @@ const NotifySubscribers = () => {
         const finalHtml = emailTemplate(message, customAddressing);
 
         const response = await axios.post(
-            `${process.env.REACT_APP_BACKEND_BASE_URL}/api/user/notify-batch`,
+            `${process.env.REACT_APP_BACKEND_BASE_URL}/user/notify-batch`,
             {
                 subject,
                 html: finalHtml, // send full template, not raw message

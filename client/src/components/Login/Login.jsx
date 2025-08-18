@@ -15,12 +15,38 @@ const Login = () => {
 
   // Add new effect to handle initial auth check
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (token) {
-      const redirectTo = validateRedirectPath(searchParams.get('redirect_to'));
-      navigate(redirectTo);
-    }
-  }, []);
+  const token = Cookies.get("token");
+  console.log("[Login.jsx] Token from cookies:", token);
+
+  if (token) {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}/auth/verify`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log("[Login.jsx] Backend verify response:", res.data);
+        if (res.data.success) {
+          const redirectTo = validateRedirectPath(
+            searchParams.get("redirect_to")
+          );
+          navigate(redirectTo);
+        } else {
+          console.log("[Login.jsx] Token invalid, clearing...");
+          Cookies.remove("token");
+          localStorage.removeItem("core-token");
+          localStorage.removeItem("core-token-exp");
+         
+        }
+      })
+      .catch((err) => {
+        console.log("[Login.jsx] Error verifying token:", err);
+        Cookies.remove("token");
+        localStorage.removeItem("core-token");
+        localStorage.removeItem("core-token-exp");
+       
+      });
+  }
+}, []);
 
   // Add new utility function for path validation
   const validateRedirectPath = (path) => {
@@ -28,7 +54,7 @@ const Login = () => {
   // Only allow relative paths starting with /
   if (!path.startsWith('/')) return '/admin';
     // Remove any potential harmful characters
-    return path.replace(/[^\w\-\/]/g, '');
+    return path.replace(/[^\w\-\/?=&]/g, '');
   };
 
   const handleSubmit = async (e) => {

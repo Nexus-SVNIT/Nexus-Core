@@ -28,8 +28,8 @@ const navigationLinks = [
     icon: faList,
     label: "Forms",
     children: [
-      { path: "/core/admin/forms/all", label: "All Forms" },
-      { path: "/core/admin/forms/create", label: "Create Form" },
+      { path: "/admin/forms/all", label: "All Forms" },
+      { path: "/admin/forms/create", label: "Create Form" },
     ]
   },
   {

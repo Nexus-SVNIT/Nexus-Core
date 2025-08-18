@@ -25,7 +25,7 @@ const IssueModal = ({ isOpen, onClose }) => {
         { issueType: "Website Issue", description: description.trim() },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Attach token in headers
+            Authorization: `Bearer ${token}`,
           },
         }
       );

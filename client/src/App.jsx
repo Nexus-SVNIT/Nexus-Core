@@ -18,7 +18,7 @@ import { useState } from "react";
 import VerifyAlumni from './components/VerifyAlumni/VerifyAlumni';
 
 import FloatingReportButton from './components/UI/FloatingReportButton';
-const DefaultLayout = lazy(() => import("./layout/DefaultLayout"));
+
 
 const queryClient = new QueryClient();
 const token = localStorage.getItem("token");

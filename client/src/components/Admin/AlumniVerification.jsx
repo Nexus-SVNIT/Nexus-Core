@@ -11,7 +11,7 @@ function AlumniVerification() {
 
     const fetchAlumni = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/user/alumni/pending`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/alumni/pending`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('core-token')}`
                 }
@@ -28,7 +28,7 @@ function AlumniVerification() {
     const handleVerify = async (id) => {
         const toastId = toast.loading('Verifying alumni...');
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/user/alumni/verify/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/alumni/verify/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('core-token')}`
@@ -49,7 +49,7 @@ function AlumniVerification() {
     const handleReject = async (id) => {
         const toastId = toast.loading('Rejecting alumni...');
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/user/alumni/reject/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/alumni/reject/${id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('core-token')}`

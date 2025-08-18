@@ -55,7 +55,7 @@ const AdminPostDetail = () => {
     const fetchPost = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/api/posts/${id}`,
+    `${process.env.REACT_APP_BACKEND_BASE_URL}/posts/${id}`,
           {
             headers: { 'Authorization': `Bearer ${coreToken}` }
           }
@@ -75,7 +75,7 @@ const AdminPostDetail = () => {
     try {
       const loadingToast = toast.loading('Verifying post...');
       await axios.post(
-        `${process.env.REACT_APP_BACKEND_BASE_URL}/api/posts/${id}/verify`,
+  `${process.env.REACT_APP_BACKEND_BASE_URL}/posts/${id}/verify`,
         {},
         {
           headers: { 'Authorization': `Bearer ${coreToken}` }

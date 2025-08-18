@@ -1,6 +1,6 @@
-export { default as Layout } from './Layout/Layout.jsx'
 
-export { default as Navbar } from './Navbar/Navbar.jsx'
+
+
 
 export { default as Button } from './Button/Button.jsx'
 export { default as Title } from './Title/Title.jsx'
@@ -15,4 +15,4 @@ export { default as CreateForm } from './Form/CreateForm.jsx'
 export { default as AlumniNetwork } from './AlumniNetwork/AlumniNetwork.jsx'
 export { default as Three } from './ThreeJS/Three.jsx'
 
-export { default as SideBar } from './SideNavigationBar/SideBar.jsx'
+
