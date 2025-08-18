@@ -49,6 +49,7 @@ const AddProject = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('core-token')}`,
                 },
                 body: JSON.stringify(projectData),
             });

@@ -1,11 +1,9 @@
 
 import Tables from '../pages/Tables/Tables'
 import AdminPanel from '../pages/Dashboard/AdminPanel.jsx'
-import {  CreateForm } from '../components'
+import { CreateForm } from '../components'
 
 import AllForms from '../pages/Forms/AllForms'
-import CreatePanelForm from '../components/Form/CreatePanelForm.jsx'
-
 
 import AlumniVerification from '../pages/Alumni/AlumniVerification.jsx'
 import verifyAchievement from '../pages/Achievements/verifyAchievement.jsx'
@@ -60,13 +58,8 @@ export const AdminRoutes = [
   },
   {
     path: 'verify-alumni',
-    title: 'Verify Alumni',
+    title: 'Verify Alumni Account',
     component: AlumniVerification
-  },
-  {
-    path: 'create-panel',
-    title: 'Create Panel',
-    component: CreatePanelForm
   },
   {
     path: 'create-event',

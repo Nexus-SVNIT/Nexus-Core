@@ -11,8 +11,22 @@ const VerifyAchievements = () => {
     useEffect(() => {
         const fetchAchievements = async () => {
             try {
-                const pendingResponse = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/achievements/pending/`);
-                const verifiedResponse = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/achievements/`);
+                const pendingResponse = await axios.get(
+                    `${process.env.REACT_APP_BACKEND_BASE_URL}/achievements/pending/`
+                    , {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }
+                );
+                const verifiedResponse = await axios.get(
+                    `${process.env.REACT_APP_BACKEND_BASE_URL}/achievements/`
+                    , {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 setPendingAchievements(pendingResponse.data);
                 setVerifiedAchievements(verifiedResponse.data);

@@ -56,7 +56,7 @@ const AdminPostPage = () => {
                 <p className="text-gray-400">by {post.author.fullName}</p>
                 <p className="text-gray-400">Company: {post.company}</p>
                 <Link 
-                  to={`/core/admin/verify-posts/${post._id}`}
+                  to={`/admin/verify-posts/${post._id}`}
                   className="text-blue-400 hover:text-blue-300 text-sm mt-2 inline-block"
                 >
                   View Details
