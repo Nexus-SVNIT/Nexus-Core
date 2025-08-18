@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const { alumniVerificationTemplate, alumniRejectionTemplate } = require('../utils/emailTemplates.js');
+const { sendEmail } = require('../utils/emailUtils.js');
 
 const getAllAlumniDetails = async (req, res) => {
     try {
@@ -87,7 +88,7 @@ const getAllCompaniesAndExpertise = async (req, res) => {
 
 const getPendingAlumni = async (req, res) => {
     try {
-        const pendingAlumni = await user.find({
+        const pendingAlumni = await User.find({
             isAlumni: true,
             emailVerified: true,
             isVerified: false
@@ -101,7 +102,7 @@ const getPendingAlumni = async (req, res) => {
 const verifyAlumni = async (req, res) => {
     try {
         const { id } = req.params;
-        const alumniUser = await user.findById(id);
+        const alumniUser = await User.findById(id);
 
         if (!alumniUser) {
             return res.status(404).json({ message: 'User not found' });
@@ -117,6 +118,7 @@ const verifyAlumni = async (req, res) => {
 
         res.status(200).json({ message: 'Alumni verified successfully' });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Error verifying alumni', error });
     }
 };
@@ -124,7 +126,7 @@ const verifyAlumni = async (req, res) => {
 const rejectAlumni = async (req, res) => {
     try {
         const { id } = req.params;
-        const alumniUser = await user.findById(id);
+        const alumniUser = await User.findById(id);
 
         if (!alumniUser) {
             return res.status(404).json({ message: 'User not found' });
@@ -135,7 +137,7 @@ const rejectAlumni = async (req, res) => {
         // CHANGE: await transporter.sendMail({ ...emailContent, to: alumniUser.personalEmail })
         await sendEmail({ ...emailContent, to: alumniUser.personalEmail });
 
-        await user.findByIdAndDelete(id);
+        await User.findByIdAndDelete(id);
         res.status(200).json({ message: 'Alumni rejected successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error rejecting alumni', error });
