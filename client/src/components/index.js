@@ -4,11 +4,11 @@
 
 export { default as Button } from './Button/Button.jsx'
 export { default as Title } from './Title/Title.jsx'
-export { default as Terminal } from './Terminal/Terminal.jsx'
-export { default as FAQs } from './FAQs/FAQs.jsx'
+
+
 
 export { default as Footer } from './Footer/Footer.jsx'
-export { default as WhatPeopleThinkAboutUS } from './WhatPeopleThinkAboutUs/WhatPeopleThinkAboutUS.jsx'
+
 export { default as NotFound } from './NotFound/NotFound.jsx'
 export { default as CreateForm } from './Form/CreateForm.jsx'
 
