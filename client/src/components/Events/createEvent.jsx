@@ -38,7 +38,7 @@ const EventForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/event/create`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_BASE_URL}/event/`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

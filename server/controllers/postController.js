@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const Question = require('../models/questionModel');
 const { sendEmail } = require('../utils/emailUtils');
 const { postVerificationTemplate } = require('../utils/emailTemplates');
 
@@ -16,6 +17,7 @@ const getPostById = async (req, res) => {
 
     res.status(200).json(post);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };

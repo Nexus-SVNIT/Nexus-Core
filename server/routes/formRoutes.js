@@ -15,8 +15,8 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Routes
-router.get('/:id', getFormFields);
 router.get('/all', getAllForms);
+router.get('/:id', getFormFields);
 router.post('/create', createForm);
 router.get('/get-responses/:id', getResponses);
 router.patch('/update-status/:id', updateFormStatus);

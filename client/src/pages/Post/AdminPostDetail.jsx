@@ -83,7 +83,7 @@ const AdminPostDetail = () => {
       );
       toast.dismiss(loadingToast);
       toast.success('Post verified successfully');
-      navigate('/core/admin/verify-posts');
+      navigate('/admin/verify-posts');
     } catch (error) {
       toast.error('Error verifying post');
     }

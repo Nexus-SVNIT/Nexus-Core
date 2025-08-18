@@ -70,7 +70,7 @@ const EditForm = () => {
       } catch (error) {
         console.error("Error fetching form:", error);
         toast.error("Error loading form");
-        navigate("/core/admin/forms/all");
+        navigate("/admin/forms/all");
       }
     };
 
@@ -118,7 +118,7 @@ const EditForm = () => {
 
       if (response.ok) {
         toast.success("Form updated successfully", { id: toastId });
-        navigate("/core/admin/forms/all");
+        navigate("/admin/forms/all");
       } else {
         throw new Error("Failed to update form");
       }

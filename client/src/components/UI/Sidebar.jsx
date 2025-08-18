@@ -43,11 +43,6 @@ const navigationLinks = [
     label: "Add Project"
   },
   {
-    path: "/admin/create-panel",
-    icon: faCog,
-    label: "Create Panel"
-  },
-  {
     path: "/admin/verify-achievements",
     icon: faTrophy,
     label: "Verify Achievements"
@@ -61,11 +56,6 @@ const navigationLinks = [
     path: "/admin/alumni-verification",
     icon: faUserGraduate,
     label: "Verify Alumni Account"
-  },
-  {
-    path: "/admin/verify-alumni",
-    icon: faUserGraduate,
-    label: "Verify Alumni"
   },
   {
     path: "/admin/create-event",
