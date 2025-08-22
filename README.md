@@ -221,4 +221,4 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 - All contributors and maintainers
 - Open source community
 
-For more information or support, please contact the Nexus team at [nexus@svnit.ac.in](mailto:nexus@svnit.ac.in)
+For more information or support, please contact the Nexus team at [nexus@coed.svnit.ac.in](mailto:nexus@coed.svnit.ac.in)
