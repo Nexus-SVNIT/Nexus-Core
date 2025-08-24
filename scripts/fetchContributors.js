@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const axios = require('axios');
+const contributorsSchema = require('./models/contributorsSchema');
 
 const MONGO_URL = process.env.MONGO_URL;
 const owner = process.env.GIT_OWNER;
@@ -121,18 +122,14 @@ async function main() {
             serverSelectionTimeoutMS: 10000,
         });
         console.log('MongoDB connection established.');
-    } catch (connErr) {
-        console.error('MongoDB connection error:', connErr);
-        mongoose.disconnect();
-        process.exit(1);
-    }
-    try {
+
         await fetchContributors();
         console.log('Contributors fetched and updated successfully.');
-    } catch (queryErr) {
-        console.error('Error during fetching contributors:', queryErr);
+    } catch (err) {
+        console.error('Some Error Occured:', err);
+    } finally {
+        mongoose.disconnect();
     }
-    mongoose.disconnect();
 }
 
 main().catch(err => {
