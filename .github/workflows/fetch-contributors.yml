@@ -3,15 +3,17 @@ name: Fetch Contributors
 on:
   workflow_dispatch:
   schedule:
-  # cron to run every day at 2 AM IST
-    - cron: '0 20 * * *' # 2 AM IST is 20:00 UTC
+    # Run every day at 2:00 AM IST (20:30 UTC)
+    - cron: '30 20 * * *'
 
 jobs:
   fetch-coding-profiles:
     runs-on: ubuntu-latest
     env:
       MONGO_URL: ${{ secrets.MONGO_URL }}
-      CODING_PROFILE_BASE_URL: ${{ secrets.CODING_PROFILE_BASE_URL }}
+      GIT_OWNER: ${{ secrets.GIT_OWNER }}
+      GIT_REPO: ${{ secrets.GIT_REPO }}
+      GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,11 +24,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install axios mongoose dotenv 
+        run: npm install axios mongoose dotenv
 
       - name: Fetch all contributors
-        env:
-          MONGO_URL: ${{ secrets.MONGO_URL }}
-          CODING_PROFILE_BASE_URL: ${{ secrets.CODING_PROFILE_BASE_URL }}
-        run: |
-          node scripts/fetchContributors.js
+        run: node scripts/fetchContributors.js
