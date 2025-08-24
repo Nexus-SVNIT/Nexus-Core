@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const path = require('path');
 
 const EMAIL_ID = process.env.EMAIL_ID;
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
@@ -16,11 +17,12 @@ function emailHeader() {
     <div style="background: #1e1e1e; padding: 28px 20px; text-align: center; border-bottom: 1px solid #2c2c2c;">
         <img src="https://lh3.googleusercontent.com/d/1GV683lrLV1Rkq5teVd1Ytc53N6szjyiC" alt="Nexus Logo" style="max-height: 70px; margin-bottom: 12px;" />
         <div style="font-size: 15px; color: #bbb;">Departmental Cell of DoCSE & DoAI, SVNIT Surat</div>
-    </div
+    </div>
     `;
 }
 
 function emailFooter() {
+    const LINK_COLOR = '#4fc3f7'; // Define LINK_COLOR here since it was missing
     return `
     <div style="background: #1e1e1e; color: #aaa; text-align: center; font-size: 14px; padding: 20px; border-top: 1px solid #2c2c2c;">
         <div><strong>Team Nexus</strong> • CSE & AI Departments, SVNIT Surat</div>
@@ -62,6 +64,20 @@ function emailWrapper(contentHtml) {
                     font-weight: 600;
                     margin-top: 12px;
                 }
+                .button-link {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    background-color: #00c6fb;
+                    color: #111 !important;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    margin: 5px;
+                }
+                .mandatory {
+                    color: #ff6b6b;
+                    font-weight: 600;
+                }
             </style>
         </head>
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;">
@@ -81,7 +97,13 @@ async function sendAlumniWelcomeEmail(user) {
     const contentHtml = `
         <div class='content'>
             <p>Dear ${user.fullName || 'Alumnus'},</p>
-            <p>Congratulations on achieving this important milestone. As you step into the next chapter of your journey, we are pleased to welcome you to the <b><span style='color: #00c6fb;'>Nexus Alumni Network</span></b> – the official alumni community for the <i>CSE & AI Departments of SVNIT</i>.</p>
+            <p>Congratulations on achieving this important milestone. As you step into the next chapter of your journey, we are pleased to welcome you to the <b>Nexus Alumni Network</b> – the official alumni community for the <i>CSE & AI Departments of SVNIT</i>.</p>
+            
+            <!-- Embedded image -->
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="cid:AlumniPoster" alt="Alumni Network" style="max-width: 100%; height: auto; border-radius: 8px;" />
+            </div>
+            
             <p>Your time at SVNIT has contributed to the legacy of our department, and now, as an alumnus, you become an integral part of the Nexus community that connects students, faculty, and alumni. Through this network, we aim to create opportunities for mentorship, collaboration, and sharing expertise with the batches to come.</p>
             <div>To include you in our alumni directory and ensure smooth communication, we request you to share the following details:</div>
             <ul>
@@ -97,22 +119,34 @@ async function sendAlumniWelcomeEmail(user) {
             </ul>
             <div>To get started:</div>
             <div style='margin: 28px 0 18px 0; text-align: center;'>
-                <a href='https://www.nexus-svnit.in/alumni' class='button-link'>Visit Alumni Network Page</a><br>
+                <a href='https://www.nexus-svnit.in/alumni-network' class='button-link'>Visit Alumni Network Page</a><br>
                 <a href='https://www.nexus-svnit.in/profile' class='button-link'>Update Your Profile</a><br>
-                <a href='https://www.nexus-svnit.in/interview-experience' class='button-link'>Share Interview Experience</a>
+                <a href='https://www.nexus-svnit.in/interview-experiences' class='button-link'>Share Interview Experience</a>
             </div>
             <p>This information will help us build a comprehensive alumni network and allow current students to connect with you for guidance and mentorship.</p>
             <p>We look forward to your continued involvement and support as part of the Nexus community.</p>
             <p>Warm Regards,<br>Team Nexus</p>
         </div>
     `;
+    
     const html = emailWrapper(contentHtml);
-    await transporter.sendMail({
-        from: EMAIL_ID,
+    
+    // Email options with attachment and embedded image
+    const mailOptions = {
+        from: `Team Nexus ${EMAIL_ID}`,
         to: user.personalEmail,
-        subject: "Congratulations – You’re Now Part of the Nexus Alumni Network",
-        html
-    });
+        subject: "Congratulations – You're Now Part of the Nexus Alumni Network",
+        html: html,
+        attachments: [
+            {
+                filename: 'AlumniPoster.png', // Name that will appear in the email
+                path: path.join(__dirname, 'static', 'AlumniPoster.png'), // Path to the image
+                cid: 'AlumniPoster' // Content-ID for embedding in HTML
+            }
+        ]
+    };
+    
+    await transporter.sendMail(mailOptions);
 }
 
 module.exports = { sendAlumniWelcomeEmail, emailHeader, emailFooter };
