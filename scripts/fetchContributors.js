@@ -103,7 +103,8 @@ const fetchContributors = async() => {
                 const yearData = commitsByYear[currentYear];
                 await contributorsSchema.findOneAndUpdate(
                     { year: currentYear },
-                    { total: yearData.total, contributors: yearData.contributors }
+                    { total: yearData.total, contributors: yearData.contributors },
+                    { upsert: true, new: true }
                 );
             }
         }
@@ -128,7 +129,7 @@ async function main() {
     } catch (err) {
         console.error('Some Error Occured:', err);
     } finally {
-        mongoose.disconnect();
+        await mongoose.disconnect();
     }
 }
 
