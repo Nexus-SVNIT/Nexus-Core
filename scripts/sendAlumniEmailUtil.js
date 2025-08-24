@@ -13,49 +13,63 @@ const transporter = nodemailer.createTransport({
 
 function emailHeader() {
     return `
-    <div class='header'>
-        <img class='logo' src='https://lh3.googleusercontent.com/d/1GV683lrLV1Rkq5teVd1Ytc53N6szjyiC' alt='Nexus Logo' />
-        <div class='subtitle'>Departmental Cell of DoCSE & DoAI, SVNIT Surat</div>
-    </div>
+    <div style="background: #1e1e1e; padding: 28px 20px; text-align: center; border-bottom: 1px solid #2c2c2c;">
+        <img src="https://lh3.googleusercontent.com/d/1GV683lrLV1Rkq5teVd1Ytc53N6szjyiC" alt="Nexus Logo" style="max-height: 70px; margin-bottom: 12px;" />
+        <div style="font-size: 15px; color: #bbb;">Departmental Cell of DoCSE & DoAI, SVNIT Surat</div>
+    </div
     `;
 }
 
 function emailFooter() {
     return `
-    <div class='footer'>
-        <div><b>Team Nexus</b> &bull; CSE & AI Departments, SVNIT Surat</div>
-        <div>Contact: <a href='mailto:nexus@coed.svnit.ac.in' style='color:#00c6fb;text-decoration:none;'>nexus@coed.svnit.ac.in</a> | <a href='https://www.nexus-svnit.in' style='color:#00c6fb;text-decoration:none;'>nexus-svnit.in</a></div>
-        <div>Follow us: <a href='https://www.linkedin.com/company/nexus-svnit' style='color:#00c6fb;text-decoration:none;'>LinkedIn</a> | <a href='https://www.instagram.com/nexus.svnit/' style='color:#00c6fb;text-decoration:none;'>Instagram</a></div>
+    <div style="background: #1e1e1e; color: #aaa; text-align: center; font-size: 14px; padding: 20px; border-top: 1px solid #2c2c2c;">
+        <div><strong>Team Nexus</strong> • CSE & AI Departments, SVNIT Surat</div>
+        <div style="margin: 6px 0;">
+            Contact: 
+            <a class="link" style="color:${LINK_COLOR};" href="mailto:nexus@coed.svnit.ac.in">nexus@coed.svnit.ac.in</a> |
+            <a class="link" style="color:${LINK_COLOR};" href="https://www.nexus-svnit.in">nexus-svnit.in</a>
+        </div>
+        <div>
+            Follow us: 
+            <a class="link" style="color:${LINK_COLOR};" href="https://www.linkedin.com/company/nexus-svnit">LinkedIn</a> |
+            <a class="link" style="color:${LINK_COLOR};" href="https://www.instagram.com/nexus.svnit/">Instagram</a>
+        </div>
     </div>
     `;
 }
 
 function emailWrapper(contentHtml) {
     return `
-    <html>
+    <html lang="en">
         <head>
-            <meta charset='UTF-8'>
-            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-                body { background: #111; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; }
-                .container { max-width: 650px; margin: 40px auto; background: #181818; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.18); overflow: hidden; }
-                .header { background: #000; color: #fff; padding: 32px 0 18px 0; text-align: center; }
-                .logo { max-height: 70px; margin-bottom: 10px; }
-                .title { font-size: 26px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
-                .subtitle { font-size: 16px; color: #bbb; }
-                .content { padding: 38px 30px 30px 30px; color: #fff; }
-                .button-link { display:inline-block; padding:10px 15px; background-color:#0078d4; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; margin: 12px 8px; font-size: 14px; transition: background 0.2s; border:none; }
-                .button-link:hover { background-color:#005fa3; }
-                .footer { background: #181818; color: #aaa; text-align: center; font-size: 14px; padding: 22px 12px; border-top: 1px solid #222; }
-                ul { margin: 18px 0 26px 0; padding-left: 22px; }
-                .mandatory { color: #ff5252; font-weight: bold; }
-                .section-title { font-size: 18px; color: #00c6fb; font-weight: 600; margin-top: 30px; margin-bottom: 10px; }
+                .link {
+                    color: #4fc3f7;
+                    text-decoration: none;
+                }
+                .link:hover {
+                    text-decoration: underline;
+                }
+                .btn {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    background-color: #00c6fb;
+                    color: #111 !important;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    margin-top: 12px;
+                }
             </style>
         </head>
-        <body>
-            <div class='container'>
+        <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0;">
+            <div style="max-width: 650px; margin: 40px auto; background: #181818; border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.25); overflow: hidden;">
                 ${emailHeader()}
-                ${contentHtml}
+                <div style="padding: 30px 28px; color: #ddd; font-size: 16px; line-height: 1.6;">
+                    ${contentHtml}
+                </div>
                 ${emailFooter()}
             </div>
         </body>
